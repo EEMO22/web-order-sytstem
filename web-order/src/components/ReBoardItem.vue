@@ -56,9 +56,9 @@ export default {
       const month = +nowDate.split('-')[1];
       const day = +nowDate.split('-')[2]
       const nowDateObject = new Date(year, month, day);
-
-    return new Date().getTime() - nowDateObject.getTime() < 24 * 60 * 60 * 1000;
-
+      
+    return new Date().getTime() - nowDateObject.getTime() < 24 * 60 * 60 * 1000; 
+    
     },
     translateId() {
        const userId= this.comment.comments_user_id
@@ -68,17 +68,13 @@ export default {
       }
       return null // return 값이 없으면 안됨
     }
-
+    
   }
 }
 </script>
 
 <style scoped lang="scss">
 @import '../scss/variables.scss';
-.container {
-  display: flex;
-}
-
 .cards {
   display: flex;
   border: 3px solid rgb(233, 240, 247);
@@ -107,7 +103,6 @@ img {
   width: 150px;
   min-height: 140px;
   max-width: 32vw;
-  min-width: 32vw;
   object-fit: cover;
   z-index: 0;
 }
