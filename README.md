@@ -1,5 +1,5 @@
 # [Web_Order_System]
-### 별도의 다운로드를 요구하지 않는 Web-App 기반 테이블 오더
+### Web-App 테이블 오더
 
 <br />
 
