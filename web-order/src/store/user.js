@@ -37,26 +37,6 @@ export default {
     }
   },
   mutations: {
-    getLikeUserList(state, payload) {
-      console.log("payload", payload)
-      axios.get(`${process.env.VUE_APP_URL}/api/user/get/likeStatus/` + payload)
-      .then(res => {
-        console.log("server", res);
-        state.likeUser = res.data;
-      })
-      .catch(err => {
-        console.log("err", err)
-      })
-    },
-    getOrderList(state) {
-      axios.get(`${process.env.VUE_APP_URL}/api/user/get/orderList`)
-      .then(res => {
-        console.log("sss", res.data)
-        state.orderList = res.data;
-      }).catch(err => {
-        console.log("Error", err);
-      })
-    },
     login(state, payload) {
       console.log("mutation_loginToken_payload_user_info", payload)
       state.user_info = [{
@@ -64,20 +44,6 @@ export default {
         "user_name":payload.data.user_name }]
       state.token = payload.data.token
     },
-    logout(state) {
-      state.token = [],
-      state.orderList = [],
-      state.user_info = [],
-      location.reload;
-      router.push('/');
-      axios.post(`${process.env.VUE_APP_URL}/api/auth/logout`)
-      .then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    
   },
   actions: {
     login({ commit }, state) {
@@ -98,11 +64,44 @@ export default {
         console.log("err", err)
       })
     },
+    logout(state) {
+      state.token = [],
+      state.orderList = [],
+      state.user_info = [],
+      location.reload;
+      router.push('/');
+      axios.post(`${process.env.VUE_APP_URL}/api/auth/logout`)
+      .then(res => {
+        console.log(res);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     like({commit}) {
       commit('setLikeUserList')
     },
     dislike({commit}) {
       commit('deleteLikeUserList')
-    }
+    },
+    getLikeUserList(state, payload) {
+      console.log("payload", payload)
+      axios.get(`${process.env.VUE_APP_URL}/api/user/get/likeStatus/` + payload)
+      .then(res => {
+        console.log("server", res);
+        state.likeUser = res.data;
+      })
+      .catch(err => {
+        console.log("err", err)
+      })
+    },
+    getOrderList(state) {
+      axios.get(`${process.env.VUE_APP_URL}/api/user/get/orderList`)
+      .then(res => {
+        console.log("sss", res.data)
+        state.orderList = res.data;
+      }).catch(err => {
+        console.log("Error", err);
+      })
+    },
   }
 }
