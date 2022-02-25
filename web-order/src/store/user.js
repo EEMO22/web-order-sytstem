@@ -38,18 +38,25 @@ export default {
   },
   mutations: {
     login(state, payload) {
-      console.log("mutation_loginToken_payload_user_info", payload)
+      console.log("mutation_loginToken_payload_user_info", payload);
       state.user_info = [{
         "user_id" : payload.data.user_id,
         "user_name":payload.data.user_name }]
       state.token = payload.data.token
     },
+    logout(state, payload) {
+      console.log("mutations_logout_state", payload);
+      state.token = [],
+      state.orderList = [],
+      state.user_info = [],
+      location.reload;
+    }
   },
   actions: {
-    login({ commit }, state) {
-      console.log("action_login_state", state)
+    login({ commit }, payload) {
+      console.log("action_login_state", payload)
       axios.post(`${process.env.VUE_APP_URL}/api/auth/login`,
-      JSON.stringify(state),
+      JSON.stringify(payload),
       {
         headers: {
           'Content-Type' : "application/json"
@@ -64,14 +71,11 @@ export default {
         console.log("err", err)
       })
     },
-    logout(state) {
-      state.token = [],
-      state.orderList = [],
-      state.user_info = [],
-      location.reload;
+    logout({ commit }) {
       router.push('/');
       axios.post(`${process.env.VUE_APP_URL}/api/auth/logout`)
       .then(res => {
+        commit('logout', res);
         console.log(res);
       }).catch(err => {
         console.log(err)
